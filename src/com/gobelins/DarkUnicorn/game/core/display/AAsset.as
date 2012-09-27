@@ -17,6 +17,7 @@ package com.gobelins.DarkUnicorn.game.core.display {
 		protected var _entity : AEntity;
 		protected var _body : Body;
 		protected var _sprite : Sprite;
+		protected var _value : Number;
 		//
 		private var _gonnaBeRemoved : Boolean;
 		private var _toDelete : Boolean;
@@ -76,6 +77,10 @@ package com.gobelins.DarkUnicorn.game.core.display {
 		
 		public function get toDelete() : Boolean {
 			return _toDelete;
+		}
+
+		public function get value() : Number {
+			return _value;
 		}
 	}
 }

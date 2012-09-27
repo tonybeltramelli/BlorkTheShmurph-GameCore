@@ -29,7 +29,7 @@ package com.gobelins.DarkUnicorn.game.display.assets {
 			_sprite.pivotY = _sprite.height/2;
 			
 			_body = new Body(BodyType.DYNAMIC, new Vec2(0, 0));
-			_body.shapes.add((new Circle(_sprite.height/2, null, new Material(1.5))));
+			_body.shapes.add((new Circle(_sprite.height/2, null, new Material(0.9))));
 			_body.graphic = _sprite;
 		}
 	}

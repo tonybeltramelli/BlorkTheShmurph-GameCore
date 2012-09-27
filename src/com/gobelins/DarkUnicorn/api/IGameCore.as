@@ -5,6 +5,6 @@ package com.gobelins.DarkUnicorn.api {
 	public interface IGameCore {
 		function start() : void;
 		function startAt(l : Number) : void;
-		function stop() : void;
+		function pause() : void;
 	}
 }

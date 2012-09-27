@@ -1,5 +1,5 @@
 package com.gobelins.DarkUnicorn.game {
-	import starling.text.TextField;
+	import com.gobelins.DarkUnicorn.game.display.assets.coin.CoinAsset;
 	import nape.geom.Vec2;
 	import nape.phys.Body;
 	import nape.space.Space;
@@ -23,6 +23,7 @@ package com.gobelins.DarkUnicorn.game {
 		//
 		private var _mainContainer : Sprite;
 		private var _container : Sprite;
+		private var _isPaused : Boolean;
 		//private var _textField : TextField;
 
 		public function Game(assets : Vector.<IAsset>)
@@ -61,10 +62,14 @@ package com.gobelins.DarkUnicorn.game {
 			
 			_actionManager = new ActionManager(_space);
 			_actionManager.init();
+			
+			_isPaused = false;
 		}
 
 		public function update() : void
 		{
+			if(_isPaused) return;
+			
 			_space.step(1 / 60);
 
 			_container.x = -_hero.body.position.x + STAGE.stageWidth / 2;
@@ -73,18 +78,23 @@ package com.gobelins.DarkUnicorn.game {
 			const L : int = _assets.length;
 			while ( --L != -1 )
 			{
-				if (AAsset(_assets[L]).toDelete)
+				var target : AAsset = AAsset(_assets[L]);
+				
+				if (target.toDelete)
 				{
-					_container.removeChild(AAsset(_assets[L]).body.graphic);
-					_space.bodies.remove(AAsset(_assets[L]).body);
-					AAsset(_assets[L]).clean();
+					_container.removeChild(target.body.graphic);
+					_space.bodies.remove(target.body);
+					target.clean();
 				}
-				if (!AAsset(_assets[L]).gonnaBeRemoved && !AAsset(_assets[L]).isMap && !AAsset(_assets[L]).isHero)
+				if (!target.gonnaBeRemoved && !target.isMap && !target.isHero)
 				{
-					if (Sprite(_hero.body.graphic).bounds.intersects(Sprite(AAsset(_assets[L]).body.graphic).bounds))
+					if (Sprite(_hero.body.graphic).bounds.intersects(Sprite(target.body.graphic).bounds))
 					{
-						_score ++;
-						AAsset(_assets[L]).toRemove();
+						if(target is CoinAsset)
+						{
+							_score += target.value;
+							target.toRemove();
+						}
 					}
 				}
 			}
@@ -94,9 +104,21 @@ package com.gobelins.DarkUnicorn.game {
 
 		public function updateGraphic(b : Body) : void
 		{
+			if(_isPaused) return;
+			
 			b.graphic.x = b.position.x;
 			b.graphic.y = b.position.y;
 			b.graphic.rotation = b.rotation;
+		}
+		
+		public function pause() : void
+		{
+			_isPaused = true;
+		}
+		
+		public function reStart() : void
+		{
+			_isPaused = false;
 		}
 
 		public function clean() : void

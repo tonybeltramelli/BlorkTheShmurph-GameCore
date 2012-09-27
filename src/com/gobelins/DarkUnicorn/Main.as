@@ -1,12 +1,14 @@
 package com.gobelins.DarkUnicorn {
-	import com.gobelins.DarkUnicorn.game.Game;
-	import com.gobelins.DarkUnicorn.game.core.display.IAsset;
-	import com.gobelins.DarkUnicorn.game.display.assets.CoinAsset;
-	import com.gobelins.DarkUnicorn.game.display.assets.HeroAsset;
-	import com.gobelins.DarkUnicorn.game.display.assets.MapAsset;
-
 	import starling.display.Sprite;
 	import starling.events.Event;
+
+	import com.gobelins.DarkUnicorn.game.Game;
+	import com.gobelins.DarkUnicorn.game.core.display.IAsset;
+	import com.gobelins.DarkUnicorn.game.display.assets.HeroAsset;
+	import com.gobelins.DarkUnicorn.game.display.assets.MapAsset;
+	import com.gobelins.DarkUnicorn.game.display.assets.coin.CoinAsset;
+	import com.gobelins.DarkUnicorn.game.display.assets.coin.CoinType;
+
 
 	/**
 	 * @author Tony Beltramelli - www.tonybeltramelli.com
@@ -25,7 +27,7 @@ package com.gobelins.DarkUnicorn {
 
 			var assets : Vector.<IAsset> = new Vector.<IAsset>();
 			assets.push(new MapAsset(-219, -192, 68.1, 384.6));
-			assets.push(new MapAsset(140, -36, 78.1, 78.1));
+			assets.push(new MapAsset(90, -36, 78.1, 78.1));
 			assets.push(new MapAsset(244, -272, 44.05, 336.5));
 			assets.push(new MapAsset(413, -100, 188.3, 64.05));
 			assets.push(new MapAsset(361, 96, 32.05, 124.2));
@@ -46,32 +48,32 @@ package com.gobelins.DarkUnicorn {
 			assets.push(new MapAsset(108, 352, 32.05, 124.2));
 			assets.push(new MapAsset(-218, 426, 32.05, 124.2));
 			assets.push(new MapAsset(741, -220, 188.3, 64.05));
-			assets.push(new MapAsset(537, 332, 256.35, 80.15));
+			assets.push(new MapAsset(525, 332, 256.35, 80.15));
 			assets.push(new MapAsset(865, 198, 32.05, 124.2));
-			assets.push(new MapAsset(803, 334, 78.1, 78.1));
+			assets.push(new MapAsset(789, 334, 78.1, 78.1));
 			assets.push(new MapAsset(-13, 142, 78.1, 78.1));
 			assets.push(new MapAsset(-453, 28, 78.1, 78.1));
 			assets.push(new MapAsset(74, -384, 78.1, 78.1));
 			assets.push(new MapAsset(361, -360, 78.1, 78.1));
 			// ------ //
-			assets.push(new CoinAsset(18, -342));
-			assets.push(new CoinAsset(170, 166));
-			assets.push(new CoinAsset(376, 254));
-			assets.push(new CoinAsset(-370, 468));
-			assets.push(new CoinAsset(-274, 468));
-			assets.push(new CoinAsset(-294, 66));
-			assets.push(new CoinAsset(784, 86));
-			assets.push(new CoinAsset(-470, 468));
-			assets.push(new CoinAsset(116, -434));
-			assets.push(new CoinAsset(784, 26));
-			assets.push(new CoinAsset(534, -186));
-			assets.push(new CoinAsset(784, -106));
-			assets.push(new CoinAsset(534, -328));
-			assets.push(new CoinAsset(664, 276));
-			assets.push(new CoinAsset(784, -38));
-			assets.push(new CoinAsset(-410, -58));
-			assets.push(new CoinAsset(206, -342));
-			assets.push(new CoinAsset(116, -256));
+			assets.push(new CoinAsset(18, -342, CoinType.SILVER));
+			assets.push(new CoinAsset(170, 166, CoinType.SILVER));
+			assets.push(new CoinAsset(376, 254, CoinType.SILVER));
+			assets.push(new CoinAsset(-370, 468, CoinType.SILVER));
+			assets.push(new CoinAsset(-274, 468, CoinType.SILVER));
+			assets.push(new CoinAsset(-294, 66, CoinType.GOLD));
+			assets.push(new CoinAsset(784, 86, CoinType.SILVER));
+			assets.push(new CoinAsset(-470, 468, CoinType.GOLD));
+			assets.push(new CoinAsset(116, -434, CoinType.SILVER));
+			assets.push(new CoinAsset(784, 26, CoinType.GOLD));
+			assets.push(new CoinAsset(534, -186, CoinType.RED));
+			assets.push(new CoinAsset(784, -106, CoinType.GOLD));
+			assets.push(new CoinAsset(534, -328, CoinType.SILVER));
+			assets.push(new CoinAsset(664, 276, CoinType.GOLD));
+			assets.push(new CoinAsset(784, -38, CoinType.SILVER));
+			assets.push(new CoinAsset(-410, -58, CoinType.SILVER));
+			assets.push(new CoinAsset(206, -342, CoinType.GOLD));
+			assets.push(new CoinAsset(116, -256, CoinType.SILVER));
 			// ------ //
 			assets.push(new HeroAsset());
 
@@ -89,6 +91,16 @@ package com.gobelins.DarkUnicorn {
 		private function _update(event : Event) : void
 		{
 			_game.update();
+		}
+		
+		public function pause() : void
+		{
+			_game.pause();
+		}
+		
+		public function reStart() : void
+		{
+			_game.reStart();
 		}
 	}
 }

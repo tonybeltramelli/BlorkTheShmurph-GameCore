@@ -35,8 +35,13 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 			_keyHandler.addEventListener(KeyEvent.KEY_MATCH, _keyMatch);
 			_keyHandler.init(STAGE, new <uint>[37, 38, 39, 40]);
 			
-			_accelerometer = new Accelerometer();
-			_accelerometer.addEventListener(AccelerometerEvent.UPDATE, _onAcceleration);
+			trace("------> Accelerometer.isSupported : "+Accelerometer.isSupported);
+			if (Accelerometer.isSupported)
+            {
+				trace("---------> _accelerometer init");
+				_accelerometer = new Accelerometer();
+				_accelerometer.addEventListener(AccelerometerEvent.UPDATE, _onAcceleration);
+			}
 		}
 
 		private function _keyMatch(event : KeyEvent) : void
@@ -53,6 +58,7 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 		
 		private function _onAcceleration(event : AccelerometerEvent) : void
 		{
+			trace("-----> _onAcceleration x : "+event.accelerationX+", y : "+event.accelerationY);
 			_action.accelerate(event.accelerationX, event.accelerationY);
 		}
 

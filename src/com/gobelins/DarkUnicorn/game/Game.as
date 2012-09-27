@@ -23,7 +23,7 @@ package com.gobelins.DarkUnicorn.game {
 		//
 		private var _mainContainer : Sprite;
 		private var _container : Sprite;
-		private var _textField : TextField;
+		//private var _textField : TextField;
 
 		public function Game(assets : Vector.<IAsset>)
 		{
@@ -54,10 +54,10 @@ package com.gobelins.DarkUnicorn.game {
 				}
 			}
 			
-			_textField = new TextField(200, 100, "Score :"+_score);
+			/*_textField = new TextField(200, 100, "Score :"+_score);
 			_textField.color = 0xFF0000;
 			_textField.fontSize = 24;
-			_mainContainer.addChild(_textField);
+			_mainContainer.addChild(_textField);*/
 			
 			_actionManager = new ActionManager(_space);
 			_actionManager.init();
@@ -89,7 +89,7 @@ package com.gobelins.DarkUnicorn.game {
 				}
 			}
 			
-			_textField.text = "Score :"+_score;
+			//_textField.text = "Score :"+_score;
 		}
 
 		public function updateGraphic(b : Body) : void

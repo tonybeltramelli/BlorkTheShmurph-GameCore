@@ -9,6 +9,7 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 
 	import flash.events.AccelerometerEvent;
 	import flash.sensors.Accelerometer;
+
 	/**
 	 * @author Tony Beltramelli - www.tonybeltramelli.com
 	 */
@@ -25,63 +26,67 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 		{
 			_spaceReference = space;
 			_upDown = _rightLeft = 0;
-			
+
 			_action = new Action();
 		}
-		
+
 		public function init() : void
 		{
 			_keyHandler = new KeyHandler();
 			_keyHandler.addEventListener(KeyEvent.KEY_MATCH, _keyMatch);
 			_keyHandler.init(STAGE, new <uint>[37, 38, 39, 40]);
-			
-			trace("------> Accelerometer.isSupported : "+Accelerometer.isSupported);
+
+			trace("------> Accelerometer.isSupported : " + Accelerometer.isSupported);
 			if (Accelerometer.isSupported)
-            {
-				trace("---------> _accelerometer init");
+			{
 				_accelerometer = new Accelerometer();
 				_accelerometer.addEventListener(AccelerometerEvent.UPDATE, _onAcceleration);
 			}
 		}
 
 		private function _keyMatch(event : KeyEvent) : void
-		{	
-			if(event.state)
+		{
+			if (event.state)
 			{
-				_action.startAction(event.key);		
-			}else{
+				_action.startAction(event.key);
+			} else {
 				_action.stopAction(event.key);
 			}
-			
+
 			_compute();
 		}
-		
+
 		private function _onAcceleration(event : AccelerometerEvent) : void
 		{
-			trace("-----> _onAcceleration x : "+event.accelerationX+", y : "+event.accelerationY);
-			_action.accelerate(event.accelerationX, event.accelerationY);
+			_rightLeft = -event.accelerationX * 100;
+			_upDown = event.accelerationY * 100;
+			
+			_compute();
 		}
 
 		private function _compute() : void
 		{
-			if (_action.up) _upDown--;
-			if (_action.right) _rightLeft++;
-			if (_action.down) _upDown++;
-			if (_action.left) _rightLeft--;
-
-			if (!_action.up && !_action.down && _upDown != 0)
+			if (!Accelerometer.isSupported)
 			{
-				_upDown < 0 ? _upDown += 0.5 : _upDown > 0 ? _upDown -= 0.5 : _upDown;
+				if (_action.up) _upDown--;
+				if (_action.right) _rightLeft++;
+				if (_action.down) _upDown++;
+				if (_action.left) _rightLeft--;
+
+				if (!_action.up && !_action.down && _upDown != 0)
+				{
+					_upDown < 0 ? _upDown += 0.5 : _upDown > 0 ? _upDown -= 0.5 : _upDown;
+				}
+
+				if (!_action.right && !_action.left && _rightLeft != 0)
+				{
+					_rightLeft < 0 ? _rightLeft += 0.5 : _rightLeft > 0 ? _rightLeft -= 0.5 : _rightLeft;
+				}
 			}
 
-			if (!_action.right && !_action.left && _rightLeft != 0)
-			{
-				_rightLeft < 0 ? _rightLeft += 0.5 : _rightLeft > 0 ? _rightLeft -= 0.5 : _rightLeft;
-			}
-			
-			_spaceReference.gravity = new Vec2(_rightLeft*50, _upDown*50);
+			_spaceReference.gravity = new Vec2(_rightLeft * 50, _upDown * 50);
 		}
-		
+
 		public function clean() : void
 		{
 			_keyHandler.removeEventListener(KeyEvent.KEY_MATCH, _keyMatch);

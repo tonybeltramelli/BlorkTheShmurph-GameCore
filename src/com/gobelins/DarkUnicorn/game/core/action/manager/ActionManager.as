@@ -1,15 +1,20 @@
 package com.gobelins.DarkUnicorn.game.core.action.manager {
 	import nape.geom.Vec2;
 	import nape.space.Space;
+
 	import com.gobelins.DarkUnicorn.game.control.keyboard.KeyEvent;
 	import com.gobelins.DarkUnicorn.game.control.keyboard.KeyHandler;
 	import com.gobelins.DarkUnicorn.game.core.action.Action;
 	import com.gobelins.DarkUnicorn.game.stage.STAGE;
+
+	import flash.events.AccelerometerEvent;
+	import flash.sensors.Accelerometer;
 	/**
 	 * @author Tony Beltramelli - www.tonybeltramelli.com
 	 */
 	public class ActionManager {
 		private var _keyHandler : KeyHandler;
+		private var _accelerometer : Accelerometer;
 		private var _action : Action;
 		//
 		private var _upDown : Number;
@@ -29,6 +34,9 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 			_keyHandler = new KeyHandler();
 			_keyHandler.addEventListener(KeyEvent.KEY_MATCH, _keyMatch);
 			_keyHandler.init(STAGE, new <uint>[37, 38, 39, 40]);
+			
+			_accelerometer = new Accelerometer();
+			_accelerometer.addEventListener(AccelerometerEvent.UPDATE, _onAcceleration);
 		}
 
 		private function _keyMatch(event : KeyEvent) : void
@@ -41,6 +49,11 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 			}
 			
 			_compute();
+		}
+		
+		private function _onAcceleration(event : AccelerometerEvent) : void
+		{
+			_action.accelerate(event.accelerationX, event.accelerationY);
 		}
 
 		private function _compute() : void

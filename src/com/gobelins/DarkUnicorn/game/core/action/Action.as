@@ -32,6 +32,14 @@ package com.gobelins.DarkUnicorn.game.core.action {
 			}
 		}
 		
+		public function accelerate(xValue : Number, yValue : Number) : void
+		{
+			_right = xValue < 0;
+			_left = xValue > 0;
+			_up  = yValue < 0;
+			_down = yValue > 0;
+		}
+		
 		public function stopAction(code : uint) : void
 		{
 			switch(code)

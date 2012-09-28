@@ -48,6 +48,8 @@ package com.gobelins.DarkUnicorn {
 			_starling = new Starling(Main, stage);
 
 			STAGE = _starling.stage;
+			
+			start();
 		}
 
 		private function _rootCreated(event : starling.events.Event) : void

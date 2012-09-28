@@ -58,6 +58,7 @@ package com.gobelins.DarkUnicorn.game {
 					if (AAsset(_assets[L]).isHero)
 					{
 						assetBody.graphicUpdate = _updateGraphicHero;
+						Starling.juggler.add(HeroAsset(_assets[L]).particles);
 					}else{
 						assetBody.graphicUpdate = _updateGraphic;
 					}
@@ -121,7 +122,7 @@ package com.gobelins.DarkUnicorn.game {
 								_score -= target.entity.value;
 								target.showValue(_container);
 								_score = _score < 0 ? 0 : _score;
-								_hero.hit();
+								_hero.hit(_container);
 								
 								dispatchEvent(new GameEvent(GameEvent.UPDATE));
 							}

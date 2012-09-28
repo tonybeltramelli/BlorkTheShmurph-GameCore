@@ -14,6 +14,12 @@ package com.gobelins.DarkUnicorn.game.display.texture {
 		[Embed(source="../../../../../../../medias/spriteSheetDescriptor.xml", mimeType="application/octet-stream")]
 		private static const _AtlasXmlGame : Class;
 		
+		[Embed(source="../../../../../../../medias/particle.pex", mimeType="application/octet-stream")]
+        public static const ParticleConfig:Class;
+        
+		[Embed(source = "../../../../../../../medias/texture.png")]
+        public static const ParticleTexture:Class;
+		
 		private static var _gameTextureAtlas : TextureAtlas;
 
 		public static function getAtlas() : TextureAtlas

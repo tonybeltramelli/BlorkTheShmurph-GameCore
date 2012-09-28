@@ -1,4 +1,4 @@
-#BlorkTheSmurff-GameCore
+#BlorkTheShmurph-GameCore
 ======================
 
 ##AIR game - 35h project at Les Gobelins school

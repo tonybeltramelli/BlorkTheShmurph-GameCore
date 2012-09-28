@@ -2,9 +2,12 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 	import nape.geom.Vec2;
 	import nape.space.Space;
 
+	import starling.events.TouchEvent;
+
 	import com.gobelins.DarkUnicorn.game.control.keyboard.KeyEvent;
 	import com.gobelins.DarkUnicorn.game.control.keyboard.KeyHandler;
 	import com.gobelins.DarkUnicorn.game.core.action.Action;
+	import com.gobelins.DarkUnicorn.game.core.display.AAsset;
 	import com.gobelins.DarkUnicorn.game.stage.STAGE;
 
 	import flash.events.AccelerometerEvent;
@@ -21,13 +24,23 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 		private var _upDown : Number;
 		private var _rightLeft : Number;
 		private var _spaceReference : Space;
+		private var _hero : AAsset;
 
-		public function ActionManager(space : Space)
+		public function ActionManager(space : Space, hero : AAsset)
 		{
 			_spaceReference = space;
+			_hero = hero;
 			_upDown = _rightLeft = 0;
 
 			_action = new Action();
+			
+			STAGE.addEventListener(TouchEvent.TOUCH, _tapHandler);
+		}
+
+		private function _tapHandler(event : TouchEvent) : void
+		{
+			_hero.body.graphic.x = _hero.body.position.x = 0
+			_hero.body.graphic.y = _hero.body.position.y = 0;
 		}
 
 		public function init() : void
@@ -92,6 +105,8 @@ package com.gobelins.DarkUnicorn.game.core.action.manager {
 			_keyHandler.removeEventListener(KeyEvent.KEY_MATCH, _keyMatch);
 			_keyHandler.clean();
 			_keyHandler = null;
+			
+			STAGE.removeEventListener(TouchEvent.TOUCH, _tapHandler); 
 		}
 	}
 }

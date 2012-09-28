@@ -7,6 +7,7 @@ package com.gobelins.DarkUnicorn.game.core.entity {
 		public var y : Number = 0;
 		public var w : Number = 0;
 		public var h : Number = 0;
+		public var value : Number;
 		//
 		protected var _toMoveWithInteractions : Boolean = false;
 		protected var _isMainCollider : Boolean = false;

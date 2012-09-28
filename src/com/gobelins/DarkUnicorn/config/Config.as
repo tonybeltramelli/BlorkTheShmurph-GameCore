@@ -9,6 +9,7 @@ package com.gobelins.DarkUnicorn.config {
 		public static const AIR_FRICTION : Number = 0.9;
 		public static const BODY_FRICTION : Number = 0.5;
 		//
-		public static const TIME : Number = 12000;
+		public static const TIME_INCREMENT : Number = 1;
+		public static const TIME_TOTAL : Number = 3000;
 	}
 }

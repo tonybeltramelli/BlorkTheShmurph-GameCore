@@ -1,8 +1,9 @@
 package com.gobelins.DarkUnicorn.game.core.display {
 	import nape.phys.Body;
 
+	import starling.display.DisplayObject;
 	import starling.display.Image;
-	import starling.display.Sprite;
+	import starling.display.MovieClip;
 
 	import com.gobelins.DarkUnicorn.game.core.entity.AEntity;
 	import com.greensock.TweenLite;
@@ -16,8 +17,8 @@ package com.gobelins.DarkUnicorn.game.core.display {
 	public class AAsset {
 		protected var _entity : AEntity;
 		protected var _body : Body;
-		protected var _sprite : Sprite;
-		protected var _value : Number;
+		protected var _image : Image;
+		protected var _movieClip : MovieClip;
 		//
 		private var _gonnaBeRemoved : Boolean;
 		private var _toDelete : Boolean;
@@ -39,7 +40,7 @@ package com.gobelins.DarkUnicorn.game.core.display {
 			if(!_gonnaBeRemoved)
 			{
 				_gonnaBeRemoved = true;
-				TweenLite.to(Sprite(_body.graphic), 0.3, {scaleX: 2, scaleY: 2, alpha: 0, onComplete: _hideIt});
+				TweenLite.to(DisplayObject(_body.graphic), 0.3, {scaleX: 2, scaleY: 2, alpha: 0, onComplete: _hideIt});
 			}
 		}
 		
@@ -50,13 +51,8 @@ package com.gobelins.DarkUnicorn.game.core.display {
 		
 		public function clean() : void
 		{
-			_sprite = null;
-		}
-		
-		protected function set _bitmap(BitmapClass : Class) : void
-		{
-			_sprite = new Sprite();
-			_sprite.addChild(Image.fromBitmap(new BitmapClass()));
+			_image = null;
+			_movieClip = null;
 		}
 
 		public function get isHero() : Boolean {
@@ -79,8 +75,12 @@ package com.gobelins.DarkUnicorn.game.core.display {
 			return _toDelete;
 		}
 
-		public function get value() : Number {
-			return _value;
+		public function get movieClip() : MovieClip {
+			return _movieClip;
+		}
+
+		public function get entity() : AEntity {
+			return _entity;
 		}
 	}
 }

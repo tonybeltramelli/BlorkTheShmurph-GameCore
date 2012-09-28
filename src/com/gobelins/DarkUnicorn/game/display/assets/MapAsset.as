@@ -22,9 +22,6 @@ package com.gobelins.DarkUnicorn.game.display.assets {
 
 			_body = new Body(BodyType.STATIC);
 			_body.shapes.add(new Polygon(Polygon.rect(0, 0, _entity.w, _entity.h)));
-			var bitmapData : BitmapData = new BitmapData(_entity.w, _entity.h, false, 0x333333);
-			var texture : Texture = Texture.fromBitmapData(bitmapData);
-			_body.graphic = new Image(texture);
 
 			_body.position.x = _entity.x;
 			_body.position.y = _entity.y;

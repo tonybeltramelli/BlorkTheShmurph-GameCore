@@ -1,4 +1,5 @@
 package com.gobelins.DarkUnicorn {
+	import flash.events.DataEvent;
 	import flashx.textLayout.formats.TextAlign;
 
 	import net.hires.debug.Stats;
@@ -19,10 +20,6 @@ package com.gobelins.DarkUnicorn {
 	import flash.events.TimerEvent;
 	import flash.text.TextField;
 	import flash.utils.Timer;
-
-
-
-
 
 	[SWF(frameRate=60, width=800, height=600, backgroundColor=0xFFFFFF)]
 	public class DarkUnicornGameCore extends Sprite implements IGameCore {
@@ -51,54 +48,54 @@ package com.gobelins.DarkUnicorn {
 			_starling = new Starling(Main, stage);
 
 			STAGE = _starling.stage;
-
-			_starling.addEventListener(starling.events.Event.ROOT_CREATED, _rootCreated);
-			_starling.start();
+			
+			start();
+			
 		}
 
 		private function _rootCreated(event : starling.events.Event) : void
 		{
 			pause();
 			_starling.removeEventListener(starling.events.Event.ROOT_CREATED, _rootCreated);
-			
+
 			_time = 3;
-			
+
 			_textFieldInfos = new TextField();
 			TextStyle.apply(_textFieldInfos, "_sans", String(_time), TextAlign.LEFT, 100, "#e43131");
-			
+
 			_infosContainer = new Sprite();
 			_infosContainer.addChild(_textFieldInfos);
 			_infosContainer.x = stage.stageWidth / 2 - _infosContainer.width / 2;
 			_infosContainer.y = stage.stageHeight / 2 - _infosContainer.height / 2;
 			addChild(_infosContainer);
-			
+
 			_textFieldInfos.x = -_textFieldInfos.width / 2;
 			_textFieldInfos.y = -_textFieldInfos.height / 2;
-			
-			TweenLite.to(_infosContainer, 1, {alpha: 0, scaleX: 2, scaleY: 2, onComplete: _animateText});
+
+			TweenLite.to(_infosContainer, 1, {alpha:0, scaleX:2, scaleY:2, onComplete:_animateText});
 		}
-		
+
 		private function _animateText() : void
 		{
-			TweenLite.to(_infosContainer, 0, {alpha: 1, scaleX: 1, scaleY: 1});
-			
-			_time --;
-			
+			TweenLite.to(_infosContainer, 0, {alpha:1, scaleX:1, scaleY:1});
+
+			_time--;
+
 			if (_time == -1)
 			{
 				removeChild(_infosContainer);
 				_startGame();
-			}else{
+			} else {
 				_textFieldInfos.text = _time != 0 ? String(_time) : "Go !";
 				_textFieldInfos.x = -_textFieldInfos.width / 2;
 				_textFieldInfos.y = -_textFieldInfos.height / 2;
-				TweenLite.to(_infosContainer, 1, {alpha: 0, scaleX: 2, scaleY: 2, onComplete: _animateText});
+				TweenLite.to(_infosContainer, 1, {alpha:0, scaleX:2, scaleY:2, onComplete:_animateText});
 			}
 		}
-		
+
 		private function _startGame() : void
 		{
-			start();
+			restart();
 			_stats = new Stats();
 			_stats.y = 200;
 			addChild(_stats);
@@ -114,9 +111,9 @@ package com.gobelins.DarkUnicorn {
 			addChild(_textFieldTime);
 
 			_starling.root.addEventListener(GameEvent.UPDATE, _updateScore);
-			
+
 			_time = Config.TIME_TOTAL;
-			
+
 			_timer = new Timer(Config.TIME_INCREMENT);
 			_timer.addEventListener(flash.events.TimerEvent.TIMER, _timerIncrement);
 			_timer.start();
@@ -125,23 +122,25 @@ package com.gobelins.DarkUnicorn {
 		private function _timerIncrement(event : flash.events.TimerEvent) : void
 		{
 			_time--;
-			
+
 			_textFieldTime.text = "Time : " + _toSeconds(_time);
-			
-			if(_toSeconds(_time) < 10) TextStyle.apply(_textFieldTime, "_sans", "Time : 0", TextAlign.LEFT, 24, "#e43131");
-			
-			if (_time != 0) return;
-			
-			_endGame();
+
+			if (parseInt(_toSeconds(_time)) < 10) TextStyle.apply(_textFieldTime, "_sans", "Time : "+_toSeconds(_time), TextAlign.LEFT, 24, "#e43131");
+
+			if (_time == 0) _endGame();
 		}
 
 		private function _endGame() : void
 		{
 			_timer.removeEventListener(flash.events.TimerEvent.TIMER, _timerIncrement);
 			_timer.stop();
-			
+
 			pause();
 			(_starling.root as Main).clean();
+			
+			var event : DataEvent = new DataEvent(DataEvent.DATA);
+			event.data = String(Main(_starling.root).score);
+			dispatchEvent(event);
 		}
 
 		private function _updateScore(event : starling.events.Event) : void
@@ -149,7 +148,7 @@ package com.gobelins.DarkUnicorn {
 			_textFieldScore.text = "Score : " + Main(event.currentTarget).score;
 		}
 
-		private function _clean(event : flash.events.Event) : void
+		private function _clean(event : flash.events.Event = null) : void
 		{
 			_starling.removeEventListener(starling.events.Event.ROOT_CREATED, _rootCreated);
 			_starling.root.removeEventListener(GameEvent.UPDATE, _updateScore);
@@ -163,26 +162,37 @@ package com.gobelins.DarkUnicorn {
 
 		public function start() : void
 		{
-			(_starling.root as Main).reStart();
-			if(_timer) _timer.start();
-		}
-
-		public function startAt(l : Number) : void
-		{
-			(_starling.root as Main).reStart();
-			if(_timer) _timer.start();
+			_starling.addEventListener(starling.events.Event.ROOT_CREATED, _rootCreated);
+			_starling.start();
 		}
 
 		public function pause() : void
 		{
 			(_starling.root as Main).pause();
-			if(_timer) _timer.stop();
+			if (_timer) _timer.stop();
 		}
 		
+		public function restart() : void
+		{
+			(_starling.root as Main).reStart();
+			if (_timer) _timer.start();
+		}
+		
+		public function clean() : void
+		{
+			_clean();
+
+			_textFieldScore = null;
+			_textFieldTime = null;
+			_textFieldInfos = null;
+			_infosContainer = null;
+			_timer = null;
+		}
+
 		private function _toSeconds(milliseconds : int) : String
 		{
 			var s : int = milliseconds / 100;
-				
+
 			var result : String = String(s);
 			return  result;
 		}

@@ -4,7 +4,11 @@ package com.gobelins.DarkUnicorn.api {
 	 */
 	public interface IGameCore {
 		function start() : void;
-		function startAt(l : Number) : void;
+
 		function pause() : void;
+
+		function restart() : void;
+
+		function clean() : void;
 	}
 }

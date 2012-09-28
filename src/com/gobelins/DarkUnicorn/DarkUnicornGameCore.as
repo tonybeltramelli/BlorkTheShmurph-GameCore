@@ -24,7 +24,7 @@ package com.gobelins.DarkUnicorn {
 	[SWF(frameRate=60, width=800, height=600, backgroundColor=0xFFFFFF)]
 	public class DarkUnicornGameCore extends Sprite implements IGameCore {
 		private var _starling : Starling;
-		private var _stats : Stats;
+		//private var _stats : Stats;
 		private var _textFieldScore : TextField;
 		private var _textFieldTime : TextField;
 		private var _textFieldInfos : TextField;
@@ -49,7 +49,7 @@ package com.gobelins.DarkUnicorn {
 
 			STAGE = _starling.stage;
 			
-			start();
+			//start();
 		}
 
 		private function _rootCreated(event : starling.events.Event) : void
@@ -95,9 +95,9 @@ package com.gobelins.DarkUnicorn {
 		private function _startGame() : void
 		{
 			resume();
-			_stats = new Stats();
-			_stats.y = 200;
-			addChild(_stats);
+			//_stats = new Stats();
+			//_stats.y = 200;
+			//addChild(_stats);
 
 			_textFieldScore = new TextField();
 			_textFieldScore.x = 5;

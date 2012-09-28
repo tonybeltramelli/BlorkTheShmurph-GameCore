@@ -10,5 +10,9 @@ package com.gobelins.DarkUnicorn.game.display.assets.coin {
 		public static const BRONZE_VALUE : Number = 1;
 		public static const GOLD_VALUE : Number = 10;
 		public static const SILVER_VALUE : Number = 5;
+		//
+		public static const BRONZE_VALUE_NAME : String = "plusOne";
+		public static const GOLD_VALUE_NAME : String = "plusTen";
+		public static const SILVER_VALUE_NAME : String = "plusFive";
 	}
 }

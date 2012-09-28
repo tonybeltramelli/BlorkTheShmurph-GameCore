@@ -1,4 +1,5 @@
 package com.gobelins.DarkUnicorn.game.core.display {
+	import starling.display.Sprite;
 	import nape.phys.Body;
 
 	import starling.display.DisplayObject;
@@ -19,6 +20,7 @@ package com.gobelins.DarkUnicorn.game.core.display {
 		protected var _body : Body;
 		protected var _image : Image;
 		protected var _movieClip : MovieClip;
+		protected var _valueImage : Image;
 		//
 		private var _gonnaBeRemoved : Boolean;
 		private var _toDelete : Boolean;
@@ -33,6 +35,19 @@ package com.gobelins.DarkUnicorn.game.core.display {
 		
 		public function update() : void
 		{
+		}
+		
+		public function showValue(container : Sprite) : void
+		{
+			container.addChild(_valueImage);
+			_valueImage.x = _body.position.x + 10;
+			_valueImage.y = _body.position.y;
+			TweenLite.to(_valueImage, 1, {delay: 0.3, alpha: 0, scaleX: 2, scaleY: 2, onComplete: _removeValue, onCompleteParams: [container]});
+		}
+		
+		public function _removeValue(container : Sprite) : void
+		{
+			container.removeChild(_valueImage);
 		}
 		
 		public function toRemove() : void

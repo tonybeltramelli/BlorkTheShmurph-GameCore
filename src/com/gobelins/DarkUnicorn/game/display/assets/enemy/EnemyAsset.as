@@ -1,8 +1,8 @@
 package com.gobelins.DarkUnicorn.game.display.assets.enemy {
 	import nape.phys.Body;
 	import nape.phys.BodyType;
-	import nape.shape.Circle;
 
+	import starling.display.Image;
 	import starling.display.MovieClip;
 
 	import com.gobelins.DarkUnicorn.game.core.display.AAsset;
@@ -18,20 +18,27 @@ package com.gobelins.DarkUnicorn.game.display.assets.enemy {
 		{
 			super(new EnemyEntity(baseX, baseY));
 			
+			var valueImageName : String;
+			
 			switch(type)
 			{
 				case EnemyType.GREEN_MONSTER :
 					_entity.value = EnemyType.GREEN_MONSTER_VALUE;
+					valueImageName = EnemyType.GREEN_VALUE_NAME;
 				break;
 				case EnemyType.GREY_MONSTER :
 					_entity.value = EnemyType.GREY_MONSTER_VALUE;
+					valueImageName = EnemyType.GREY_VALUE_NAME;
 				break;
 				case EnemyType.RED_MONSTER :
 					_entity.value = EnemyType.RED_MONSTER_VALUE;
+					valueImageName = EnemyType.RED_VALUE_NAME;
 				break;
 			}
 			
 			_movieClip = new MovieClip(SpriteSheet.getAtlas().getTextures(type));
+			
+			_valueImage = new Image(SpriteSheet.getAtlas().getTexture(valueImageName));
 			
 			_movieClip.pivotX = _movieClip.width/2;
 			_movieClip.pivotY = _movieClip.height/2;

@@ -108,6 +108,7 @@ package com.gobelins.DarkUnicorn.game {
 						if (target is CoinAsset)
 						{
 							_score += target.entity.value;
+							target.showValue(_container);
 							target.toRemove();
 							
 							dispatchEvent(new GameEvent(GameEvent.UPDATE));
@@ -118,6 +119,7 @@ package com.gobelins.DarkUnicorn.game {
 							if(!_hero.hitted)
 							{
 								_score -= target.entity.value;
+								target.showValue(_container);
 								_score = _score < 0 ? 0 : _score;
 								_hero.hit();
 								

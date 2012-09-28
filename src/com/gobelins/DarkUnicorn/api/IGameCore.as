@@ -7,7 +7,7 @@ package com.gobelins.DarkUnicorn.api {
 
 		function pause() : void;
 
-		function restart() : void;
+		function resume() : void;
 
 		function clean() : void;
 	}

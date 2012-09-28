@@ -50,7 +50,7 @@ package com.gobelins.DarkUnicorn.game.display.assets {
 		
 		private function _blinkF() : void
 		{
-			if(_blinkNumber < 6)
+			if(_blinkNumber < 5)
 			{
 				TweenLite.to(DisplayObject(_body.graphic), 0.2, {alpha: 1, onComplete: _blinkE});
 			}else{

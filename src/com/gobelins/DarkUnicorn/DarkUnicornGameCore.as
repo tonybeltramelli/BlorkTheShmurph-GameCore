@@ -48,9 +48,6 @@ package com.gobelins.DarkUnicorn {
 			_starling = new Starling(Main, stage);
 
 			STAGE = _starling.stage;
-			
-			start();
-			
 		}
 
 		private function _rootCreated(event : starling.events.Event) : void
@@ -95,7 +92,7 @@ package com.gobelins.DarkUnicorn {
 
 		private function _startGame() : void
 		{
-			restart();
+			resume();
 			_stats = new Stats();
 			_stats.y = 200;
 			addChild(_stats);
@@ -172,7 +169,7 @@ package com.gobelins.DarkUnicorn {
 			if (_timer) _timer.stop();
 		}
 		
-		public function restart() : void
+		public function resume() : void
 		{
 			(_starling.root as Main).reStart();
 			if (_timer) _timer.start();

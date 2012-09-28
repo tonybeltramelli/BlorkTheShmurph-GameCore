@@ -18,19 +18,27 @@ package com.gobelins.DarkUnicorn.game.display.assets.coin {
 		{
 			super(new CoinEntity(baseX, baseY));
 			
+			var valueImageName : String;
+			
 			switch(type)
 			{
 				case CoinType.GOLD :
 					_entity.value = CoinType.GOLD_VALUE;
+					valueImageName = CoinType.GOLD_VALUE_NAME;
 				break;
 				case CoinType.SILVER :
 					_entity.value = CoinType.SILVER_VALUE;
+					valueImageName = CoinType.SILVER_VALUE_NAME;
 				break;
 				case CoinType.BRONZE :
 					_entity.value = CoinType.BRONZE_VALUE;
+					valueImageName = CoinType.BRONZE_VALUE_NAME;
 				break;
 			}
+			
 			_image = new Image(SpriteSheet.getAtlas().getTexture(type));
+			
+			_valueImage = new Image(SpriteSheet.getAtlas().getTexture(valueImageName));
 			
 			_image.pivotX = _image.width/2;
 			_image.pivotY = _image.height/2;

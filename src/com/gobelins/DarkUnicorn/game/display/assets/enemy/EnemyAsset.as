@@ -1,14 +1,14 @@
 package com.gobelins.DarkUnicorn.game.display.assets.enemy {
+	import com.gobelins.DarkUnicorn.game.core.display.AAsset;
+	import com.gobelins.DarkUnicorn.game.core.display.IAsset;
+	import com.gobelins.DarkUnicorn.game.entities.EnemyEntity;
+	import com.gobelins.DarkUnicorn.game.medias.Medias;
 	import nape.phys.Body;
 	import nape.phys.BodyType;
-
 	import starling.display.Image;
 	import starling.display.MovieClip;
 
-	import com.gobelins.DarkUnicorn.game.core.display.AAsset;
-	import com.gobelins.DarkUnicorn.game.core.display.IAsset;
-	import com.gobelins.DarkUnicorn.game.display.texture.SpriteSheet;
-	import com.gobelins.DarkUnicorn.game.entities.EnemyEntity;
+
 
 	/**
 	 * @author Tony Beltramelli - www.tonybeltramelli.com
@@ -36,9 +36,9 @@ package com.gobelins.DarkUnicorn.game.display.assets.enemy {
 				break;
 			}
 			
-			_movieClip = new MovieClip(SpriteSheet.getAtlas().getTextures(type));
+			_movieClip = new MovieClip(Medias.getAtlas().getTextures(type));
 			
-			_valueImage = new Image(SpriteSheet.getAtlas().getTexture(valueImageName));
+			_valueImage = new Image(Medias.getAtlas().getTexture(valueImageName));
 			
 			_movieClip.pivotX = _movieClip.width/2;
 			_movieClip.pivotY = _movieClip.height/2;

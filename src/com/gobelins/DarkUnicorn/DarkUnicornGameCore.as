@@ -1,14 +1,12 @@
 package com.gobelins.DarkUnicorn {
-	import flash.events.DataEvent;
 	import flashx.textLayout.formats.TextAlign;
-
-	import net.hires.debug.Stats;
 
 	import starling.core.Starling;
 	import starling.events.Event;
 
 	import com.gobelins.DarkUnicorn.api.IGameCore;
 	import com.gobelins.DarkUnicorn.config.Config;
+	import com.gobelins.DarkUnicorn.game.medias.Medias;
 	import com.gobelins.DarkUnicorn.game.stage.STAGE;
 	import com.greensock.TweenLite;
 	import com.tonybeltramelli.lib.text.TextStyle;
@@ -16,8 +14,10 @@ package com.gobelins.DarkUnicorn {
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.events.DataEvent;
 	import flash.events.Event;
 	import flash.events.TimerEvent;
+	import flash.media.Sound;
 	import flash.text.TextField;
 	import flash.utils.Timer;
 
@@ -31,6 +31,7 @@ package com.gobelins.DarkUnicorn {
 		private var _infosContainer : Sprite;
 		private var _timer : Timer;
 		private var _time : int;
+		private var _sound : Sound;
 
 		public function DarkUnicornGameCore()
 		{
@@ -49,7 +50,9 @@ package com.gobelins.DarkUnicorn {
 
 			STAGE = _starling.stage;
 			
-			//start();
+			_sound = Medias.getSound(Medias.StartGameSound);
+			
+			start();
 		}
 
 		private function _rootCreated(event : starling.events.Event) : void
@@ -70,7 +73,7 @@ package com.gobelins.DarkUnicorn {
 
 			_textFieldInfos.x = -_textFieldInfos.width / 2;
 			_textFieldInfos.y = -_textFieldInfos.height / 2;
-
+			
 			TweenLite.to(_infosContainer, 1, {alpha:0, scaleX:2, scaleY:2, onComplete:_animateText});
 		}
 
@@ -79,7 +82,7 @@ package com.gobelins.DarkUnicorn {
 			TweenLite.to(_infosContainer, 0, {alpha:1, scaleX:1, scaleY:1});
 
 			_time--;
-
+			
 			if (_time == -1)
 			{
 				removeChild(_infosContainer);
@@ -89,6 +92,7 @@ package com.gobelins.DarkUnicorn {
 				_textFieldInfos.x = -_textFieldInfos.width / 2;
 				_textFieldInfos.y = -_textFieldInfos.height / 2;
 				TweenLite.to(_infosContainer, 1, {alpha:0, scaleX:2, scaleY:2, onComplete:_animateText});
+				if(_time == 0) _sound.play();
 			}
 		}
 
@@ -116,6 +120,8 @@ package com.gobelins.DarkUnicorn {
 			_timer = new Timer(Config.TIME_INCREMENT);
 			_timer.addEventListener(flash.events.TimerEvent.TIMER, _timerIncrement);
 			_timer.start();
+			
+			_sound = Medias.getSound(Medias.EndGameSound);
 		}
 
 		private function _timerIncrement(event : flash.events.TimerEvent) : void
@@ -133,6 +139,8 @@ package com.gobelins.DarkUnicorn {
 		{
 			_timer.removeEventListener(flash.events.TimerEvent.TIMER, _timerIncrement);
 			_timer.stop();
+			
+			_sound.play();
 
 			pause();
 			(_starling.root as Main).clean();

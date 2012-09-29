@@ -1,13 +1,15 @@
 package com.gobelins.DarkUnicorn.game.core.display {
-	import starling.display.Sprite;
 	import nape.phys.Body;
 
 	import starling.display.DisplayObject;
 	import starling.display.Image;
 	import starling.display.MovieClip;
+	import starling.display.Sprite;
 
 	import com.gobelins.DarkUnicorn.game.core.entity.AEntity;
 	import com.greensock.TweenLite;
+
+	import flash.media.Sound;
 
 
 
@@ -21,6 +23,7 @@ package com.gobelins.DarkUnicorn.game.core.display {
 		protected var _image : Image;
 		protected var _movieClip : MovieClip;
 		protected var _valueImage : Image;
+		protected var _sound : Sound;
 		//
 		private var _gonnaBeRemoved : Boolean;
 		private var _toDelete : Boolean;

@@ -142,6 +142,9 @@ package com.gobelins.DarkUnicorn {
 		
 		public function clean() : void
 		{
+			_game.removeEventListener(GameEvent.UPDATE, _updateScore);
+			removeEventListener(Event.ENTER_FRAME, _update);
+			
 			_game.clean();
 		}
 		

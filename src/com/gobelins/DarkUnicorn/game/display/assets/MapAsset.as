@@ -1,16 +1,11 @@
 package com.gobelins.DarkUnicorn.game.display.assets {
-	import com.gobelins.DarkUnicorn.game.core.display.AAsset;
-	import com.gobelins.DarkUnicorn.game.core.display.IAsset;
-	import com.gobelins.DarkUnicorn.game.entities.MapEntity;
-
-	import flash.display.BitmapData;
-
 	import nape.phys.Body;
 	import nape.phys.BodyType;
 	import nape.shape.Polygon;
 
-	import starling.display.Image;
-	import starling.textures.Texture;
+	import com.gobelins.DarkUnicorn.game.core.display.AAsset;
+	import com.gobelins.DarkUnicorn.game.core.display.IAsset;
+	import com.gobelins.DarkUnicorn.game.entities.MapEntity;
 
 	/**
 	 * @author Tony Beltramelli - www.tonybeltramelli.com

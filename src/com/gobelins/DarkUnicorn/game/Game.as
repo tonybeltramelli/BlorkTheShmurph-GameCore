@@ -1,4 +1,5 @@
 package com.gobelins.DarkUnicorn.game {
+	import com.gobelins.DarkUnicorn.game.medias.Medias;
 	import nape.geom.Vec2;
 	import nape.phys.Body;
 	import nape.space.Space;

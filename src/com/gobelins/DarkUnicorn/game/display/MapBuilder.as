@@ -1,10 +1,10 @@
 package com.gobelins.DarkUnicorn.game.display {
+	import com.gobelins.DarkUnicorn.game.core.entity.AEntity;
+	import com.gobelins.DarkUnicorn.game.medias.Medias;
 	import starling.display.Image;
 	import starling.display.Sprite;
 	import starling.textures.RenderTexture;
 
-	import com.gobelins.DarkUnicorn.game.core.entity.AEntity;
-	import com.gobelins.DarkUnicorn.game.display.texture.SpriteSheet;
 
 	/**
 	 * @author Tony Beltramelli - www.tonybeltramelli.com
@@ -20,7 +20,7 @@ package com.gobelins.DarkUnicorn.game.display {
 
 		private function _fillBackground(totalWidth : Number, totalHeight : Number) : void
 		{
-			var mapPattern : Image = new Image(SpriteSheet.getAtlas().getTexture("mapPattern"));
+			var mapPattern : Image = new Image(Medias.getAtlas().getTexture("mapPattern"));
 			var texture : RenderTexture = new RenderTexture(totalWidth, totalHeight);
 
 			var lines : int = Math.round(totalWidth / mapPattern.width);
@@ -32,7 +32,7 @@ package com.gobelins.DarkUnicorn.game.display {
 				var j : int = 0;
 
 				for (j = 0; j < collums; j++) {
-					var img : Image = new Image(SpriteSheet.getAtlas().getTexture("mapPattern"));
+					var img : Image = new Image(Medias.getAtlas().getTexture("mapPattern"));
 					img.x = img.width * i;
 					img.y = img.height * j;
 					texture.draw(img);
@@ -84,18 +84,18 @@ package com.gobelins.DarkUnicorn.game.display {
 
 		private function _buildTexture(totalWidth : Number, totalHeight : Number) : Sprite
 		{
-			var topLeft : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_topLeft"));
-			var top : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_top"));
-			var topRight : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_topRight"));
-			var left : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_left"));
-			var pattern1 : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_pattern"));
-			var pattern2 : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_pattern"));
-			var pattern3 : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_pattern"));
-			var pattern4 : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_pattern"));
-			var right : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_right"));
-			var bottomLeft : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_bottomLeft"));
-			var bottom : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_bottom"));
-			var bottomRight : Image = new Image(SpriteSheet.getAtlas().getTexture("wall_bottomRight"));
+			var topLeft : Image = new Image(Medias.getAtlas().getTexture("wall_topLeft"));
+			var top : Image = new Image(Medias.getAtlas().getTexture("wall_top"));
+			var topRight : Image = new Image(Medias.getAtlas().getTexture("wall_topRight"));
+			var left : Image = new Image(Medias.getAtlas().getTexture("wall_left"));
+			var pattern1 : Image = new Image(Medias.getAtlas().getTexture("wall_pattern"));
+			var pattern2 : Image = new Image(Medias.getAtlas().getTexture("wall_pattern"));
+			var pattern3 : Image = new Image(Medias.getAtlas().getTexture("wall_pattern"));
+			var pattern4 : Image = new Image(Medias.getAtlas().getTexture("wall_pattern"));
+			var right : Image = new Image(Medias.getAtlas().getTexture("wall_right"));
+			var bottomLeft : Image = new Image(Medias.getAtlas().getTexture("wall_bottomLeft"));
+			var bottom : Image = new Image(Medias.getAtlas().getTexture("wall_bottom"));
+			var bottomRight : Image = new Image(Medias.getAtlas().getTexture("wall_bottomRight"));
 			
 			topLeft.x = 0;
 			topLeft.y = 0;

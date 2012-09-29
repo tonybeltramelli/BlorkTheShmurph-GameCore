@@ -6,7 +6,7 @@ package com.gobelins.DarkUnicorn {
 	 */
 	public class GameEvent extends Event {
 		public static const UPDATE : String = "update";
-		
+
 		public function GameEvent(type : String, bubbles : Boolean = false, cancelable : Boolean = false)
 		{
 			super(type, bubbles, cancelable);

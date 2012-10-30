@@ -1,14 +1,17 @@
 package com.gobelins.DarkUnicorn.game.medias {
-	import starling.textures.Texture;
-	import starling.textures.TextureAtlas;
-
 	import flash.display.Bitmap;
 	import flash.media.Sound;
+	
+	import starling.textures.Texture;
+	import starling.textures.TextureAtlas;
 
 	/**
 	 * @author Tony Beltramelli - www.tonybeltramelli.com
 	 */
 	public class Medias {
+		[Embed(source="../../../../../../medias/interface/background.jpg")]
+		private static const _TextureBackground : Class;
+		
 		[Embed(source="../../../../../../medias/spriteSheet.png")]
 		private static const _AtlasTextureGame : Class;
 		
@@ -36,7 +39,20 @@ package com.gobelins.DarkUnicorn.game.medias {
 		[Embed(source = "../../../../../../medias/texture.png")]
 		public static const ParticleTexture : Class;
 		
+		private static var _bgTexture : Texture;
 		private static var _gameTextureAtlas : TextureAtlas;
+		
+		public static function getBg() : Texture
+		{
+			if( !_bgTexture)
+			{
+				var bmp : Bitmap = Bitmap( new _TextureBackground() );
+				_bgTexture = Texture.fromBitmap(bmp);
+				_bgTexture.repeat = true;
+			}
+			
+			return _bgTexture;
+		}
 		
 		public static function getAtlas() : TextureAtlas
 		{

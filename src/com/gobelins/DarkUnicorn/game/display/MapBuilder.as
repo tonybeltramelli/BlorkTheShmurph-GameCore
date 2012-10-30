@@ -15,7 +15,8 @@ package com.gobelins.DarkUnicorn.game.display {
 
 		public function MapBuilder()
 		{
-			_fillBackground(1600, 1600);
+			//Replaced with Background with texture scroll
+			//_fillBackground(1600, 1600);
 		}
 
 		private function _fillBackground(totalWidth : Number, totalHeight : Number) : void

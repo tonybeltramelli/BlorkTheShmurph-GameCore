@@ -1,16 +1,11 @@
 package com.gobelins.DarkUnicorn {
-	import flashx.textLayout.formats.TextAlign;
-
-	import starling.core.Starling;
-	import starling.events.Event;
-
 	import com.gobelins.DarkUnicorn.api.IGameCore;
 	import com.gobelins.DarkUnicorn.config.Config;
 	import com.gobelins.DarkUnicorn.game.medias.Medias;
 	import com.gobelins.DarkUnicorn.game.stage.STAGE;
 	import com.greensock.TweenLite;
 	import com.tonybeltramelli.lib.text.TextStyle;
-
+	
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
@@ -20,9 +15,15 @@ package com.gobelins.DarkUnicorn {
 	import flash.media.Sound;
 	import flash.text.TextField;
 	import flash.utils.Timer;
+	
+	import flashx.textLayout.formats.TextAlign;
+	
+	import starling.core.Starling;
+	import starling.events.Event;
 
 	[SWF(frameRate=60, width=800, height=600, backgroundColor=0xFFFFFF)]
 	public class DarkUnicornGameCore extends Sprite implements IGameCore {
+
 		private var _starling : Starling;
 		//private var _stats : Stats;
 		private var _textFieldScore : TextField;
@@ -47,6 +48,8 @@ package com.gobelins.DarkUnicorn {
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 
 			_starling = new Starling(Main, stage);
+			
+			//_starling.showStats = true;
 
 			STAGE = _starling.stage;
 			
@@ -58,6 +61,7 @@ package com.gobelins.DarkUnicorn {
 		private function _rootCreated(event : starling.events.Event) : void
 		{
 			pause();
+
 			_starling.removeEventListener(starling.events.Event.ROOT_CREATED, _rootCreated);
 
 			_time = 3;
@@ -159,7 +163,7 @@ package com.gobelins.DarkUnicorn {
 		{
 			_starling.removeEventListener(starling.events.Event.ROOT_CREATED, _rootCreated);
 			_starling.root.removeEventListener(GameEvent.UPDATE, _updateScore);
-			_timer.removeEventListener(flash.events.TimerEvent.TIMER, _timerIncrement);
+			if( _timer ) _timer.removeEventListener(flash.events.TimerEvent.TIMER, _timerIncrement);
 
 			removeEventListener(flash.events.Event.ADDED_TO_STAGE, _build);
 			removeEventListener(flash.events.Event.REMOVED_FROM_STAGE, _clean);
@@ -194,6 +198,11 @@ package com.gobelins.DarkUnicorn {
 			_textFieldInfos = null;
 			_infosContainer = null;
 			_timer = null;
+			
+			_starling.juggler.purge();
+			_starling.context.clear();
+			_starling.context.present();
+			//_starling.dispose();
 		}
 
 		private function _toSeconds(milliseconds : int) : String

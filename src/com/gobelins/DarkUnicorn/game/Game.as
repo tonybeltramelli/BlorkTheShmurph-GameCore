@@ -1,24 +1,24 @@
 package com.gobelins.DarkUnicorn.game {
-	import com.gobelins.DarkUnicorn.game.medias.Medias;
-	import nape.geom.Vec2;
-	import nape.phys.Body;
-	import nape.space.Space;
-
-	import starling.core.Starling;
-	import starling.display.DisplayObject;
-	import starling.display.MovieClip;
-	import starling.display.Sprite;
-	import starling.events.EventDispatcher;
-
 	import com.gobelins.DarkUnicorn.GameEvent;
 	import com.gobelins.DarkUnicorn.game.core.action.manager.ActionManager;
 	import com.gobelins.DarkUnicorn.game.core.display.AAsset;
 	import com.gobelins.DarkUnicorn.game.core.display.IAsset;
+	import com.gobelins.DarkUnicorn.game.display.Background;
 	import com.gobelins.DarkUnicorn.game.display.MapBuilder;
 	import com.gobelins.DarkUnicorn.game.display.assets.HeroAsset;
 	import com.gobelins.DarkUnicorn.game.display.assets.coin.CoinAsset;
 	import com.gobelins.DarkUnicorn.game.display.assets.enemy.EnemyAsset;
 	import com.gobelins.DarkUnicorn.game.stage.STAGE;
+	
+	import nape.geom.Vec2;
+	import nape.phys.Body;
+	import nape.space.Space;
+	
+	import starling.core.Starling;
+	import starling.display.DisplayObject;
+	import starling.display.MovieClip;
+	import starling.display.Sprite;
+	import starling.events.EventDispatcher;
 
 	/**
 	 * @author Tony Beltramelli - www.tonybeltramelli.com
@@ -33,6 +33,8 @@ package com.gobelins.DarkUnicorn.game {
 		private var _mainContainer : Sprite;
 		private var _container : Sprite;
 		private var _isPaused : Boolean;
+		private var _gameArea : MapBuilder;
+		private var _background : Background;
 		
 		public function Game(assets : Vector.<IAsset>)
 		{
@@ -46,7 +48,7 @@ package com.gobelins.DarkUnicorn.game {
 			_container = new Sprite();
 			_mainContainer.addChild(_container);
 
-			var background : MapBuilder = new MapBuilder();
+			_gameArea = new MapBuilder();
 
 			const L : int = assets.length;
 			while ( --L != -1 )
@@ -65,7 +67,7 @@ package com.gobelins.DarkUnicorn.game {
 					}
 					_container.addChild(assetBody.graphic);
 				} else {
-					background.draw(AAsset(_assets[L]).entity);
+					_gameArea.draw(AAsset(_assets[L]).entity);
 				}
 
 				if (AAsset(_assets[L]).isHero || AAsset(_assets[L]).isMap)
@@ -74,9 +76,12 @@ package com.gobelins.DarkUnicorn.game {
 				}
 			}
 
-			background.flatten();
-			_container.addChildAt(background, 0);
-
+			_gameArea.flatten();
+			_container.addChildAt(_gameArea, 0);
+			
+			_background = new Background();
+			_mainContainer.addChildAt(_background, 0);
+			
 			_actionManager = new ActionManager(_space, _hero);
 			_actionManager.init();
 
@@ -87,6 +92,8 @@ package com.gobelins.DarkUnicorn.game {
 		{
 			_container.x = -_hero.body.position.x + STAGE.stageWidth / 2;
 			_container.y = -_hero.body.position.y + STAGE.stageHeight / 2;
+			
+			_background.setOffset( -_container.x, -_container.y );
 			
 			if (_isPaused) return;
 
@@ -183,6 +190,10 @@ package com.gobelins.DarkUnicorn.game {
 		public function clean() : void
 		{
 			_actionManager.clean();
+			_gameArea.dispose();
+			_background.dispose();
+			_container.dispose();
+			_mainContainer.dispose();
 		}
 
 		public function get mainContainer() : Sprite {
